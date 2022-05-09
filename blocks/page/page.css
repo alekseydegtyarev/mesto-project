@@ -1,0 +1,9 @@
+.page {
+  max-width: 880px;
+  min-width: 320px;
+  background-color: #000;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
