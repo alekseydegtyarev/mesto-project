@@ -1,0 +1,15 @@
+.profile__name {
+  margin: 0;
+  max-width: calc(100% - 24px - 25px); /*100% - кнопка и её отступ*/
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.14;
+}
+
+@media screen and (max-width:680px) {
+  .profile {
+    font-size: 27px;
+    line-height: 1.22;
+  }
+}

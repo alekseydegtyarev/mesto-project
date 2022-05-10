@@ -1,0 +1,24 @@
+.popup__input-edit {
+  width: calc(100% - 2*36px);
+  height: 27px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.popup__input-edit:first-of-type {
+  margin-top: 54px;
+}
+
+@media screen and (max-width: 680px) {
+  .popup__input-edit {
+    width: 100%;
+  }
+}
