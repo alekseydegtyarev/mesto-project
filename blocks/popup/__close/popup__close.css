@@ -5,11 +5,9 @@
   background-size: cover;
   width: 32px;
   height: 32px;
-  padding: 0;
   top: -40px;
   right: -40px;
   border: none;
-  transition: opacity .5s ease;
 }
 
 .popup__close:hover {
@@ -19,6 +17,7 @@
 @media screen and (max-width: 680px) {
   .popup__close {
     right: 0;
+    top: -36px;
     width: 20px;
     height: 20px;
   }

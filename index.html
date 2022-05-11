@@ -15,55 +15,55 @@
     <section class="profile">
       <div class="profile__avatar"></div>
       <div class="profile__info">
-        <p class="profile__text profile__name">Жак-Ив Кусто</p>
-        <button class="profile__button profile__button_type_edit" type="button">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="button profile__button profile__button_type_edit" type="button">
         </button>
-        <p class="profile__text profile__about">Исследователь океана</p>
+        <p class="profile__about">Исследователь океана</p>
       </div>
-      <button class="profile__button profile__button_type_add" type="button"></button>
+      <button class="button profile__button profile__button_type_add" type="button"></button>
     </section>
     <section class="cards">
       <ul class="cards__list">
         <li class="cards__card">
-          <img class="cards__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="">
+          <img class="cards__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Руины древней кирпичной крепости в горах. На заднем фоне виднеется горный лес.">
           <div class="cards__description-container">
             <h2 class="cards__header">Карачаевск</h2>
-            <button class="cards__like" type="button"></button>
+            <button class="button cards__like" type="button"></button>
           </div>
         </li>
         <li class="cards__card">
-          <img class="cards__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="">
+          <img class="cards__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Закат, сфотографированный с возвышенности. Вдалеке виднеются очертания гор.">
           <div class="cards__description-container">
             <h2 class="cards__header">Гора Эльбрус</h2>
-            <button class="cards__like" type="button"></button>
+            <button class="button cards__like" type="button"></button>
           </div>
         </li>
         <li class="cards__card">
-          <img class="cards__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="">
+          <img class="cards__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Горный, хвойно-лиственный лес осенью, в пасмурную погоду. На заднем фоне видны горные вершины и высокогорный ледник.">
           <div class="cards__description-container">
             <h2 class="cards__header">Домбай</h2>
-            <button class="cards__like" type="button"></button>
+            <button class="button cards__like" type="button"></button>
           </div>
         </li>
         <li class="cards__card">
-          <img class="cards__image" src="./images/river-optimised.jpg" alt="">
+          <img class="cards__image" src="./images/river-optimised.jpg" alt="Спокойная река, сфотографированная летом. На переднем плане цветы ириса, на заднем фоне лес.">
           <div class="cards__description-container">
             <h2 class="cards__header">Река Камчатка</h2>
-            <button class="cards__like" type="button"></button>
+            <button class="button cards__like" type="button"></button>
           </div>
         </li>
         <li class="cards__card">
-          <img class="cards__image" src="./images/volcano-optimised.jpg" alt="">
+          <img class="cards__image" src="./images/volcano-optimised.jpg" alt="Корякский вулкан, сфотографированный из сухой речки, по берегам которой лес. На переднем плане сложены в столбик небольшие камни.">
           <div class="cards__description-container">
             <h2 class="cards__header">Корякский вулкан</h2>
-            <button class="cards__like" type="button"></button>
+            <button class="button cards__like" type="button"></button>
           </div>
         </li>
         <li class="cards__card">
-          <img class="cards__image" src="./images/tuman-optimised.jpg" alt="">
+          <img class="cards__image" src="./images/tuman-optimised.jpg" alt="Плотный утренний туман, опустившийся на лесную полянку осенью.">
           <div class="cards__description-container">
             <h2 class="cards__header">Туман</h2>
-            <button class="cards__like" type="button"></button>
+            <button class="button cards__like" type="button"></button>
           </div>
         </li>
       </ul>
@@ -75,12 +75,12 @@
   <div class="popup">
   <!-- <div class="popup popup_opened"> -->
     <div class="popup__container">
-      <button class="popup__close"></button>
+      <button class="button popup__close" type="button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
-      <form class="form">
-        <input class="popup__input-edit" type="text" placeholder="Жак-Ив Кусто">
-        <input class="popup__input-edit" type="text" placeholder="Исследователь океана">
-        <button class="popup__save-button">Сохранить</button>
+      <form class="form" name="info-edit-form">
+        <input class="popup__input-edit" type="text" name="profile__name-edit" placeholder="Жак-Ив Кусто">
+        <input class="popup__input-edit" type="text" name="profile__about-edit" placeholder="Исследователь океана">
+        <button class="button popup__save-button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>

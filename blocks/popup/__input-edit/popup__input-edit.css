@@ -4,7 +4,7 @@
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin: 0 auto;
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -20,5 +20,9 @@
 @media screen and (max-width: 680px) {
   .popup__input-edit {
     width: 100%;
+  }
+
+  .popup__input-edit:first-of-type {
+    margin-top: 75px;
   }
 }

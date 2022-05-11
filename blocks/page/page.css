@@ -6,4 +6,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  padding: 0 19px;
+}
+
+@media screen and (max-width: 680px) {
+  .page {
+    padding: 0;
+  }
 }
