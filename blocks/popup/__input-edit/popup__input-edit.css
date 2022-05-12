@@ -1,5 +1,5 @@
 .popup__input-edit {
-  width: calc(100% - 2*36px);
+  width: 100%;
   height: 27px;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -18,10 +18,6 @@
 }
 
 @media screen and (max-width: 680px) {
-  .popup__input-edit {
-    width: 100%;
-  }
-
   .popup__input-edit:first-of-type {
     margin-top: 75px;
   }

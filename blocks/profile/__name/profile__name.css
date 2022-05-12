@@ -13,6 +13,7 @@
 
 @media screen and (max-width: 680px) {
   .profile__name {
+    max-width: calc(100% - 18px - 10px - 25px); /*100% - кнопка и отступы*/
     font-size: 27px;
     line-height: 1.22;
     margin-left: 25px;

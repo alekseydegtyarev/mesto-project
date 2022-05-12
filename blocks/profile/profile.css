@@ -1,5 +1,5 @@
 .profile {
-  margin: 40px auto 0;
+  margin: 36px auto 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,5 +9,6 @@
   .profile {
     flex-direction: column;
     max-width: calc(100% - 2*19px);
+    margin-top: 42px;
   }
 }

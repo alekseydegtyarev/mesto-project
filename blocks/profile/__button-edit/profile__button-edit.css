@@ -1,15 +1,18 @@
-.profile__button_type_edit {
+.profile__button-edit {
   width: 24px;
   height: 24px;
   align-self: center;
-  margin-left: 25px;
-  background: url(../../../../images/Edit-Button.svg);
+  margin-top: 15px;
+  margin-left: 20px;
+  background: url(../../../images/pencil.svg);
+  border: 1px solid #FFFFFF;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 680px) {
-  .profile__button_type_edit {
+  .profile__button-edit {
+    margin-top: 0;
     margin-left: 10px;
     width: 18px;
     height: 18px;

@@ -16,11 +16,11 @@
       <div class="profile__avatar"></div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button class="button profile__button profile__button_type_edit" type="button">
+        <button class="button profile__button-edit" type="button">
         </button>
         <p class="profile__about">Исследователь океана</p>
       </div>
-      <button class="button profile__button profile__button_type_add" type="button"></button>
+      <button class="button profile__button-add" type="button"></button>
     </section>
     <section class="cards">
       <ul class="cards__list">
@@ -78,8 +78,8 @@
       <button class="button popup__close" type="button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
       <form class="form" name="info-edit-form">
-        <input class="popup__input-edit" type="text" name="profile__name-edit" placeholder="Жак-Ив Кусто">
-        <input class="popup__input-edit" type="text" name="profile__about-edit" placeholder="Исследователь океана">
+        <input class="popup__input-edit" type="text" name="profile__name-edit" value="Жак-Ив Кусто" placeholder="Имя">
+        <input class="popup__input-edit" type="text" name="profile__about-edit" value="Исследователь океана" placeholder="О себе">
         <button class="button popup__save-button" type="submit">Сохранить</button>
       </form>
     </div>
