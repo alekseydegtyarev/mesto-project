@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
-    <title>Mesto</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
 </head>
 <body class="page">
   <header class="header">
@@ -72,17 +72,37 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
-  <!-- <div class="popup popup_opened"> -->
+  <div class="popup popup_profile">
     <div class="popup__container">
-      <button class="button popup__close" type="button"></button>
+      <button class="button popup__close popup__close_profile" type="button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
-      <form class="form" name="info-edit-form">
-        <input class="popup__input-edit" type="text" name="profile__name-edit" value="Жак-Ив Кусто" placeholder="Имя">
-        <input class="popup__input-edit" type="text" name="profile__about-edit" value="Исследователь океана" placeholder="О себе">
-        <button class="button popup__save-button" type="submit">Сохранить</button>
+      <form class="form form_info-edit" name="form-info-edit">
+        <input class="popup__input-edit popup__input-edit_name" type="text" name="profile__name-edit" value="Жак-Ив Кусто" placeholder="Имя">
+        <input class="popup__input-edit popup__input-edit_about" type="text" name="profile__about-edit" value="Исследователь океана" placeholder="О себе">
+        <button class="button popup__save-button popup__save-button_profile" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
+  <div class="popup popup_new-place">
+    <div class="popup__container">
+      <button class="button popup__close popup__close_place" type="button"></button>
+      <h2 class="popup__header">Новое место</h2>
+      <form class="form form_add-place" name="form-new-place">
+        <input class="popup__input-edit popup__input-edit_place" type="text" name="place__name-edit" value="" placeholder="Название">
+        <input class="popup__input-edit popup__input-edit_link" type="text" name="place__link" value="" placeholder="Ссылка на картинку">
+        <button class="button popup__save-button popup__save-button_place" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+  <template class="template-card">
+    <li class="cards__card">
+      <img class="cards__image" src="" alt="">
+      <div class="cards__description-container">
+        <h2 class="cards__header"></h2>
+        <button class="button cards__like" type="button"></button>
+      </div>
+    </li>
+  </template>
+  <script src="script.js"></script>
 </body>
 </html>
