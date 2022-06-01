@@ -1,5 +1,5 @@
-let profileBtnEdit = document.querySelector('.profile__button-edit'), // присваиваем переменную кнопке редактирования профиля
-    popupProfile = document.querySelector('.popup_profile'), //переменная окна редактирования профиля
+const profileBtnEdit = document.querySelector('.profile__button-edit'), // кнопка редактирования профиля
+    popupProfile = document.querySelector('.popup_profile'), //окно редактирования профиля
     btnCloseProfile = document.querySelector('.popup__close_profile'), //кнопка закрытия окна редактирования профиля
     popupPlace = document.querySelector('.popup_new-place'), //попап окна добавления "мест"
     btnClosePlace = document.querySelector('.popup__close_place'); //кнопка закрытия окна добавления мест
@@ -51,17 +51,10 @@ formInfoEdit.addEventListener('submit', formSubmitHandler);
 
 //////////////////////
 
-//закрытие формы редактирования профиля без сброса
-// function formClose() {
-//   popupProfile.classList.remove('popup_opened');
-// }
-
-// btnSave.addEventListener('click', formClose);
-
 //закрытие формы редактирования профиля со сбросом (нажатие Х)
 function formReset() {
-  document.querySelector('.form_info-edit').reset();
-  popupProfile.classList.remove('popup_opened');
+  document.querySelector('.form_info-edit').reset(); //сбрасываем значения в форме
+  popupProfile.classList.remove('popup_opened'); //убираем видимость попапа, удалив ему класс с видимостью
 }
 
 btnCloseProfile.addEventListener('click', formReset);
@@ -71,23 +64,23 @@ btnCloseProfile.addEventListener('click', formReset);
 //открытие попапа для добавления карточек
 
 function openCardsEditor() {
-  let popupAddCards = document.querySelector('.popup_new-place');
+  let popupAddCards = document.querySelector('.popup_new-place'); //выбираем попап добавления карточки
   popupAddCards.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
 }
-
-//закрытие формы редактирования профиля со сбросом (нажатие Х)
-function formResetPlace() {
-  document.querySelector('.form_add-place').reset();
-  popupPlace.classList.remove('popup_opened');
-}
-
-btnClosePlace.addEventListener('click', formResetPlace);
 
 //присваиваем кнопке "+" переменную
 let AddPlaceBtn = document.querySelector('.profile__button-add');
 
-//при нажатии на кнопку с карандашом открываем поп-ап добавления картинок
+//при нажатии на кнопку с "+" открываем поп-ап добавления карточек
 AddPlaceBtn.addEventListener('click', openCardsEditor);
+
+//закрытие формы редактирования профиля со сбросом (нажатие Х)
+function formResetPlace() {
+  document.querySelector('.form_add-place').reset(); //сбрасываем значения в форме
+  popupPlace.classList.remove('popup_opened'); //убираем видимость попапа, удалив ему класс с видимостью
+}
+
+btnClosePlace.addEventListener('click', formResetPlace);
 
 //////////////////////
 
@@ -96,20 +89,23 @@ AddPlaceBtn.addEventListener('click', openCardsEditor);
 function addCard(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  let placeNameInput = document.querySelector('.popup__input-edit_place').value;
-  let placeLinkInput = document.querySelector('.popup__input-edit_link').value;
-  let templateCard = document.querySelector('.template-card');
-  let card = templateCard.content.cloneNode(true);
-  let image = card.querySelector('.cards__image');
-  let cardsList = document.querySelector('.cards__list');
-  let cardHeader = card.querySelector('.cards__header');
+  let placeNameInput = document.querySelector('.popup__input-edit_place').value; //значение названия в инпуте
+  let placeLinkInput = document.querySelector('.popup__input-edit_link').value; //ссылка на картинку в инпуте
+  let templateCard = document.querySelector('.template-card'); //темплэйт в конце html
+  let card = templateCard.content.cloneNode(true); //помещаем в переменную темплэйт клонированием всего содержимого
+  let image = card.querySelector('.cards__image'); //изображение внутри клонированного темплэйта
+  let cardsList = document.querySelector('.cards__list'); //список карточек
+  let cardHeader = card.querySelector('.cards__header'); //заголовок карточки
 
-  cardHeader.textContent = placeNameInput;
-  image.src = placeLinkInput;
-  cardsList.prepend(card);
+  cardHeader.textContent = placeNameInput; //помещаем в заголовок карточки значение инпута с названием
+  image.src = placeLinkInput; //в атрибут src помещаем значение ссылки из инпута
+  image.alt = placeNameInput; //в alt помещаем название из инпута
+  cardsList.prepend(card); //помещаем новую карточку, созданную в темплэйте, в начало списка карточек
+  popupPlace.classList.remove('popup_opened');//закрытие формы при создании карточки
 }
-
 
 const formAddPlace = document.querySelector('.form_add-place');
 formAddPlace.addEventListener('submit', addCard);
+
+//////////////////////
 
