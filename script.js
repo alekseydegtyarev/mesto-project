@@ -3,6 +3,8 @@ const profileBtnEdit = document.querySelector('.profile__button-edit'), // кн�
     btnCloseProfile = document.querySelector('.popup__close_profile'), //кнопка закрытия окна редактирования профиля
     popupPlace = document.querySelector('.popup__new-place'), //попап окна добавления "мест"
     btnClosePlace = document.querySelector('.popup__close_place'); //кнопка закрытия окна добавления мест
+    btnCloseZoom = document.querySelector('.popup__close_img-zoom') //кнопка закрытия увеличенной картинки
+    cardImg = document.querySelector('.cards__image');
 
 // функция открытия поп-апа редактирования профиля
 function profileEdit() {
@@ -106,6 +108,26 @@ function addCard(evt) {
 
 const formAddPlace = document.querySelector('.form_add-place');
 formAddPlace.addEventListener('submit', addCard);
+
+//////////////////////
+
+//открытие попапа с зумом картинки
+
+const popupImgZoom = document.querySelector('.popup__img-zoom');
+
+function zoomingImg(element) {
+  popupImgZoom.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
+//кладём в инпуты текущие значения со страницы
+  const imgZoomed = document.querySelector('.popup__img-zoomed'), //присваиваем
+    imgCaption = document.querySelector('figcaption'); //переменные
+
+  imgZoomed.src = element.target.src;
+  imgCaption.textContent = element.closest(document.querySelector('.cards__header')).textContent;
+
+  console.log(cardImg);
+}
+
+cardImg.addEventListener('click', zoomingImg);
 
 //////////////////////
 
