@@ -1,7 +1,7 @@
 const profileBtnEdit = document.querySelector('.profile__button-edit'), // кнопка редактирования профиля
-    popupProfile = document.querySelector('.popup_profile'), //окно редактирования профиля
+    popupProfile = document.querySelector('.popup__profile'), //окно редактирования профиля
     btnCloseProfile = document.querySelector('.popup__close_profile'), //кнопка закрытия окна редактирования профиля
-    popupPlace = document.querySelector('.popup_new-place'), //попап окна добавления "мест"
+    popupPlace = document.querySelector('.popup__new-place'), //попап окна добавления "мест"
     btnClosePlace = document.querySelector('.popup__close_place'); //кнопка закрытия окна добавления мест
 
 // функция открытия поп-апа редактирования профиля
@@ -64,7 +64,7 @@ btnCloseProfile.addEventListener('click', formReset);
 //открытие попапа для добавления карточек
 
 function openCardsEditor() {
-  let popupAddCards = document.querySelector('.popup_new-place'); //выбираем попап добавления карточки
+  let popupAddCards = document.querySelector('.popup__new-place'); //выбираем попап добавления карточки
   popupAddCards.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
 }
 
@@ -109,3 +109,33 @@ formAddPlace.addEventListener('submit', addCard);
 
 //////////////////////
 
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function addStartCards(name, link) {
+
+}
