@@ -129,6 +129,28 @@ function zoomingImg(element) {
 
 cardImg.addEventListener('click', zoomingImg);
 
+//закрытие попапа с зумом картинки
+
+const imgZoomCloseBtn = document.querySelector('.popup__close_img-zoom');
+
+function popupZoomClose() {
+  popupImgZoom.classList.remove('popup_opened');
+}
+
+imgZoomCloseBtn.addEventListener('click', popupZoomClose);
+
+//////////////////////
+
+const btnDelete = document.querySelector('.cards__delete');
+
+const handleClickBtnDelete = function(evt) {
+  const target = evt.target;
+  console.log(target);
+  const card = target.closest('.cards__card');
+  card.remove();
+}
+
+btnDelete.addEventListener('click', handleClickBtnDelete)
 //////////////////////
 
 const initialCards = [
