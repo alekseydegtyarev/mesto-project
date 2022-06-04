@@ -1,30 +1,3 @@
-const cards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const profileBtnEdit = document.querySelector('.profile__button-edit'), // кнопка редактирования профиля
     popupProfile = document.querySelector('.popup__profile'), //окно редактирования профиля
     btnCloseProfile = document.querySelector('.popup__close_profile'), //кнопка закрытия окна редактирования профиля
@@ -64,13 +37,15 @@ function closePopup(popup) {
 }
 
 //при нажатии на кнопку с карандашом открываем поп-ап
-profileBtnEdit.addEventListener('click', () => {openPopup(popupProfile)}); //передаём в параметр popup попап редактирования профиля
-profileBtnEdit.addEventListener('click', addProfileToInput);
+profileBtnEdit.addEventListener('click', () => {
+  openPopup(popupProfile);
+  addProfileToInput();
+}); //передаём в параметр popup попап редактирования профиля
 
 //сохранение текста из инпутов на страницу, часть кода с комментариями взята из тз, комментарии практикума частично сохранены
 //upd вынес объявление переменных в начало файла
 // Находим форму в DOM
-  function formSubmitHandler (evt) {
+  function handleProfileFormSubmit (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     // Так мы можем определить свою логику отправки.
     // О том, как это делать, расскажем позже.
@@ -78,34 +53,29 @@ profileBtnEdit.addEventListener('click', addProfileToInput);
     // Получите значение полей aboutInput и nameInput из свойства value
     about.textContent = aboutInput.value;
     name.textContent = nameInput.value;// Вставьте новые значения с помощью textContent
-    // popupProfile.classList.remove('popup_opened');
     closePopup(popupProfile);
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formInfoEdit.addEventListener('submit', formSubmitHandler);
+formInfoEdit.addEventListener('submit', handleProfileFormSubmit);
 
-//закрытие формы (form) со сбросом класса попапа (popup): (нажатие Х)
-function formReset(form, popup) {
-  form.reset(); //сбрасываем значения инпутов в форме на те, что были при открытии
-  popup.classList.remove('popup_opened')
-}
 
 //закрытие формы редактирования профиля
-btnCloseProfile.addEventListener('click', () => formReset (formInfoEdit, popupProfile));
+btnCloseProfile.addEventListener('click', () => closePopup(popupProfile));
 
 //при нажатии на кнопку с "+" открываем поп-ап добавления карточек
-addPlaceBtn.addEventListener('click', () => {openPopup(popupPlace)});
+addPlaceBtn.addEventListener('click', () => {
+  openPopup(popupPlace);
+  placeNameInput.value = "";
+  placeLinkInput.value = "";
+});
 
 //при нажатии на "Х" закрывает попап добавления карточек
-btnClosePlace.addEventListener('click', () => formReset(formAddPlace, popupPlace));
+btnClosePlace.addEventListener('click', () => closePopup(popupPlace));
 
 //удаление карточки
 const handleClickBtnDelete = function(evt) {
-  // const target = evt.target;
-  // const card = target.closest('.cards__card');
-  // card.remove();
   evt.target.closest('.cards__card').remove();
 }
 
@@ -139,8 +109,7 @@ const initiateCard = function(cardElement) {
   cardHeader.textContent = cardElement.name; //помещаем в заголовок карточки значение инпута с названием
   image.src = cardElement.link; //в атрибут src помещаем значение ссылки из инпута
   image.alt = cardElement.name; //в alt помещаем название из инпута
-  cardsList.prepend(card); //помещаем новую карточку, созданную в темплэйте, в начало списка карточек
-  closePopup(popupPlace);//закрытие формы при создании карточки
+  insertCard(card); //помещаем новую карточку, созданную в темплэйте, в начало списка карточек
 
   btnDelete.addEventListener('click', handleClickBtnDelete); //при добавлении новых элементов на страницу
   like.addEventListener('click', handleClickBtnLike); //слушатель для лайка
@@ -149,6 +118,10 @@ const initiateCard = function(cardElement) {
   return card; // https://efim360.ru/javascript-operator-return/
 }
 
+//помещаем новую карточку в начало грида с карточками
+const insertCard = function (newCard) {
+  cardsList.prepend(newCard);
+}
 
 //сделано по аналогии с вебинаром
 const renderCard = function(data, container) {
@@ -165,6 +138,7 @@ cards.forEach(function (item) {
 formAddPlace.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addCard();
+  closePopup(popupPlace);//закрытие формы при создании карточки
 });
 
 
