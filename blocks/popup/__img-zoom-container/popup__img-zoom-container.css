@@ -1,7 +1,5 @@
 .popup__img-zoom-container {
   margin-left: auto;
-  max-height: 75vh;
-  max-width: 75vw;
   min-width: 240px;
   position: absolute;
   top: 50%;

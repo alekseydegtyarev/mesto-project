@@ -9,8 +9,3 @@
 .cards__like:hover {
   opacity: 0.5;
 }
-
-.cards__like:active {
-  background: url(../../../images/like-active.svg);
-  opacity: 1;
-}
