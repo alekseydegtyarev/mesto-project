@@ -90,6 +90,7 @@ const handleClickBtnZoom = function(element) {
   openPopup(popupImgZoom); //добавляем класс, чтобы попап был виден
 
   imgZoomed.src = element.target.src;
+  imgZoomed.alt = element.target.alt;
   imgCaption.textContent = element.target.alt;
 }
 
@@ -147,7 +148,7 @@ function addCard() {
   //переменную используем в качестве аргумента для функции initiateCard
   const parameters = {
     name: placeNameInput.value,
-    link: placeLinkInput.value
+    link: placeLinkInput.value,
   };
   initiateCard(parameters);
 }
