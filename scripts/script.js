@@ -144,7 +144,6 @@ function addCard() {
     name: placeNameInput.value,
     link: placeLinkInput.value,
   };
-  initiateCard(parameters);
   renderCard(parameters, cardsList)
 }
 
