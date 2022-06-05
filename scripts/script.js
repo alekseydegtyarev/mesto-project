@@ -4,7 +4,7 @@ const profileBtnEdit = document.querySelector('.profile__button-edit'), // кн�
     popupPlace = document.querySelector('.popup__new-place'), //попап окна добавления "мест"
     btnClosePlace = document.querySelector('.popup__close_place'), //кнопка закрытия окна добавления мест
     imgZoomCloseBtn = document.querySelector('.popup__close_img-zoom'), //кнопка закрытия увеличенной картинки
-    cardImg = document.querySelector('.cards__image'), //картинка в карточке
+    // cardImg = document.querySelector('.cards__image'), //картинка в карточке
     name = document.querySelector('.profile__name'), //имя в профиле
     about = document.querySelector('.profile__about'), //"о себе" в профиле
     nameInput = document.querySelector('.popup__input-edit_name'), //инпут "имя"
@@ -110,18 +110,12 @@ const initiateCard = function(cardElement) {
   cardHeader.textContent = cardElement.name; //помещаем в заголовок карточки значение инпута с названием
   image.src = cardElement.link; //в атрибут src помещаем значение ссылки из инпута
   image.alt = cardElement.name; //в alt помещаем название из инпута
-  insertCard(card); //помещаем новую карточку, созданную в темплэйте, в начало списка карточек
 
   btnDelete.addEventListener('click', handleClickBtnDelete); //при добавлении новых элементов на страницу
   like.addEventListener('click', handleClickBtnLike); //слушатель для лайка
   image.addEventListener('click', handleClickBtnZoom);
 
   return card; // https://efim360.ru/javascript-operator-return/
-}
-
-//помещаем новую карточку в начало грида с карточками
-const insertCard = function (newCard) {
-  cardsList.prepend(newCard);
 }
 
 //сделано по аналогии с вебинаром
@@ -151,5 +145,6 @@ function addCard() {
     link: placeLinkInput.value,
   };
   initiateCard(parameters);
+  renderCard(parameters, cardsList)
 }
 
