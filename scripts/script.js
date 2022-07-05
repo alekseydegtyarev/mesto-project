@@ -147,3 +147,60 @@ function addCard() {
   renderCard(parameters, cardsList)
 }
 
+/////
+
+//закрытие по esc
+function escHandler(evt) {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popup)
+  }
+}
+
+//в телеге посоветовали вешать слушатель на всё окно, а не на документ
+window.addEventListener('keydown', escHandler);
+// document.addEventListener('keydown', escHandler);
+
+//Закрытие кликом на оверлей
+function closeByOverlay (evt) {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.target.classList.contains('popup')) {
+    closePopup(popup);
+  }
+}
+
+window.addEventListener('click', closeByOverlay);
+
+
+///////
+
+const checkInputValidity = (inputElement, formElement) => {
+  const isInputValid = inputElement.validity.valid;
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  if (!isInputValid) {
+    inputElement.classList.add('popup__input-edit_state_invalid');
+    errorElement.textContent = inputElement.validationMessage;
+  }
+}
+
+const setEventListener = (formElement) => {
+  const inputList = formElement.querySelectorAll('.popup__input-edit');
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    console.log('Форма отправлена');
+  });
+  inputList.forEach(input => {
+    input.addEventListener('input', (evt) => {
+      checkInputValidity(input, formElement);
+    });
+  });
+}
+
+const enableValidation = () => {
+  const forms = document.querySelectorAll('.form');
+  forms.forEach(form => {
+    setEventListener(form);
+  });
+}
+
+enableValidation();

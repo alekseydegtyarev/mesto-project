@@ -35,8 +35,10 @@
       <button class="button popup__close popup__close_profile" type="button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
       <form class="form form_info-edit" name="form-info-edit">
-        <input class="popup__input-edit popup__input-edit_name" type="text" name="profile__name-edit" value="Жак-Ив Кусто" placeholder="Имя">
-        <input class="popup__input-edit popup__input-edit_about" type="text" name="profile__about-edit" value="Исследователь океана" placeholder="О себе">
+        <input class="popup__input-edit popup__input-edit_name" type="text" name="profile__name-edit" id="profile__name-edit" value="Жак-Ив Кусто" placeholder="Имя" required minlength="2" maxlength="40">
+        <span id="profile__name-edit-error" class="error"></span>
+        <input class="popup__input-edit popup__input-edit_about" type="text" name="profile__about-edit" id="profile__about-edit" value="Исследователь океана" placeholder="О себе" required minlength="2" maxlength="200">
+        <span id="profile__about-edit-error" class="error"></span>
         <button class="button popup__save-button popup__save-button_profile" type="submit">Сохранить</button>
       </form>
     </div>
@@ -46,8 +48,10 @@
       <button class="button popup__close popup__close_place" type="button"></button>
       <h2 class="popup__header">Новое место</h2>
       <form class="form form_add-place" name="form-new-place">
-        <input class="popup__input-edit popup__input-edit_place" type="text" name="place__name-edit" value="" placeholder="Название">
-        <input class="popup__input-edit popup__input-edit_link" type="text" name="place__link" value="" placeholder="Ссылка на картинку">
+        <input class="popup__input-edit popup__input-edit_place" type="text" name="place__name-edit" id="place__name-edit" value="" placeholder="Название" required minlength="2" maxlength="30">
+        <span id="place__name-edit-error" class="error"></span>
+        <input class="popup__input-edit popup__input-edit_link" type="url" name="place__link" id="place__link" value="" placeholder="Ссылка на картинку" required>
+        <span id="place__link-error" class="error"></span>
         <button class="button popup__save-button popup__save-button_place" type="submit">Создать</button>
       </form>
     </div>
