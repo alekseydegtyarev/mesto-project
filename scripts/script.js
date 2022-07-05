@@ -172,35 +172,69 @@ function closeByOverlay (evt) {
 window.addEventListener('click', closeByOverlay);
 
 
-///////
+//вебинар по валидации 14.06
 
-const checkInputValidity = (inputElement, formElement) => {
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.popup__input-edit',
+  submitButtonSelector: 'button',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input-edit_state_invalid',
+  errorClass: 'error'
+}
+
+const showError = (errorElement, inputElement, config) => {
+  inputElement.classList.add(config.inputErrorClass);
+  errorElement.textContent = inputElement.validationMessage;
+}
+
+const hideError = (errorElement, inputElement, config) => {
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.textContent = inputElement.validationMessage;
+}
+
+const checkInputValidity = (inputElement, formElement, config) => {
   const isInputValid = inputElement.validity.valid;
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   if (!isInputValid) {
-    inputElement.classList.add('popup__input-edit_state_invalid');
-    errorElement.textContent = inputElement.validationMessage;
+    showError(errorElement, inputElement, config);
+  }
+  else {
+    hideError(errorElement, inputElement, config);
   }
 }
 
-const setEventListener = (formElement) => {
-  const inputList = formElement.querySelectorAll('.popup__input-edit');
+const toggleButtonState = (button, isActive= false, config) => {
+  if(isActive) {
+    button.classList.remove(config.inactiveButtonClass);
+    button.disabled = false;
+  }
+  else {
+    button.classList.add(config.inactiveButtonClass);
+    button.disabled = true;
+  }
+}
+
+const setEventListener = (formElement, config) => {
+  const inputList = formElement.querySelectorAll(config.inputSelector);
+  const submitButton = formElement.querySelector(config.submitButtonSelector);
+  toggleButtonState(submitButton, formElement.checkValidity(), config); //кнопка при открытии неактивна
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    console.log('Форма отправлена');
   });
   inputList.forEach(input => {
-    input.addEventListener('input', (evt) => {
-      checkInputValidity(input, formElement);
+    input.addEventListener('input', () => {
+      checkInputValidity(input, formElement, config);
+      toggleButtonState(submitButton, formElement.checkValidity(), config);
     });
   });
 }
 
-const enableValidation = () => {
-  const forms = document.querySelectorAll('.form');
+const enableValidation = (config) => {
+  const forms = document.querySelectorAll(config.formSelector);
   forms.forEach(form => {
-    setEventListener(form);
+    setEventListener(form, config);
   });
 }
 
-enableValidation();
+enableValidation(validationConfig);
