@@ -3,7 +3,7 @@
 const validationConfig = {
   formSelector: '.form',
   inputSelector: '.popup__input-edit',
-  submitButtonSelector: 'button',
+  submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'button_disabled',
   inputErrorClass: 'popup__input-edit_state_invalid',
   errorClass: 'error'
