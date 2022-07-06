@@ -17,17 +17,11 @@ btnCloseProfile.addEventListener('click', () => closePopup(popupProfile));
 //при нажатии на кнопку с "+" открываем поп-ап добавления карточек
 addPlaceBtn.addEventListener('click', () => {
   openPopup(popupPlace);
-  placeNameInput.value = "";
-  placeLinkInput.value = "";
 });
 
 //при нажатии на "Х" закрывает попап добавления карточек
 btnClosePlace.addEventListener('click', () => closePopup(popupPlace));
 
-
-
-//при нажатии на оверлэй закрывает попап
-window.addEventListener('click', closeByOverlay);
 
 
 

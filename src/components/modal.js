@@ -10,15 +10,12 @@ import {
   popupProfile,
   profileBtnEdit
 } from "./utils.js";
-import {validationConfig, toggleButtonState} from "./validate.js";
+// import {validationConfig, toggleButtonState} from "./validate.js";
 
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
-  const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
-  if (popup.querySelector(validationConfig.submitButtonSelector) !== null) { //https://bobbyhadz.com/blog/javascript-check-if-element-has-child-with-id
-    submitButton.classList.add(validationConfig.inactiveButtonClass);
-    submitButton.disabled = true;
-  }
+  window.addEventListener('keydown', handleEsc);
+  window.addEventListener('mousedown', closeByOverlay);
 }
 
 //в "значение"(value) инпутов кладём текущий текст со страницы
@@ -30,6 +27,8 @@ function addProfileToInput() {
 //функция закрытия попапа, по аналогии с открытием, только заменяем "add" на "remove"
 function closePopup(popup) {
   popup.classList.remove('popup_opened'); //добавляем класс, чтобы попап был виден
+  window.removeEventListener('keydown', handleEsc);
+  window.removeEventListener('click', closeByOverlay);
 }
 
 //при нажатии на кнопку с карандашом открываем поп-ап
@@ -63,23 +62,18 @@ const handleClickBtnZoom = function(element) {
 }
 
 //закрытие по esc
-function escHandler(evt) {
-  const popup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') {
-    closePopup(popup)
-  }
-}
-
-//в телеге страший студент посоветовал вешать слушатель на всё окно, а не на документ
-window.addEventListener('keydown', escHandler);
-// document.addEventListener('keydown', escHandler);
-
-//Закрытие кликом на оверлей
-function closeByOverlay (evt) {
-  const popup = document.querySelector('.popup_opened');
-  if (evt.target.classList.contains('popup')) {
+function handleEsc(evt) {
+  if ((evt.key === 'Escape') && (document.querySelector('.popup_opened'))) { //проверяем, что (нажат Esc) и (на странице присутствует открытый попап)
+    const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
 }
 
-export {openPopup, addProfileToInput, closePopup, handleProfileFormSubmit, escHandler, closeByOverlay, handleClickBtnZoom};
+//Закрытие кликом на оверлей
+function closeByOverlay (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+}
+
+export {openPopup, addProfileToInput, closePopup, handleProfileFormSubmit, handleEsc, closeByOverlay, handleClickBtnZoom};

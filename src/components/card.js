@@ -1,5 +1,6 @@
-import {popupPlace, imgZoomCloseBtn, placeNameInput, placeLinkInput, templateCard, cardsList, popupImgZoom, imgZoomed, imgCaption, formAddPlace} from './utils.js';
-import {handleClickBtnZoom, closePopup} from './modal.js';
+import {popupPlace, imgZoomCloseBtn, placeNameInput, placeLinkInput, templateCard, cardsList, popupImgZoom, imgZoomed, imgCaption, formAddPlace, addPlaceSubmitBtn} from './utils.js';
+import {handleClickBtnZoom, closePopup,} from './modal.js';
+import {validationConfig} from './validate.js'
 
 const volcano = new URL('../images/volcano-optimised.jpg', import.meta.url);
 const tuman = new URL('../images/tuman-optimised.jpg', import.meta.url);
@@ -48,13 +49,13 @@ const handleClickBtnDelete = function(evt) {
 
 //лайк
 const handleClickBtnLike = function (evt) {
-  evt.target.closest('.cards__like').classList.toggle('cards__like_active');
+  evt.target.classList.toggle('cards__like_active');
 }
 
 
 
 //закрытие попапа с зумом картинки
-imgZoomCloseBtn.addEventListener('click', () => closePopup(popupImgZoom));
+imgZoomCloseBtn.addEventListener('mousedown', () => closePopup(popupImgZoom));
 
 //добавление 6 стартовых карточек из массива при загрузке страницы
 //добавление карточек должно быть после объявления функций, на которые внутри ссылаются слушатели событий
@@ -92,9 +93,15 @@ cards.forEach(function (item) {
 formAddPlace.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addCard();
+  evt.target.reset();
   closePopup(popupPlace);//закрытие формы при создании карточки
+  inactivateButton(addPlaceSubmitBtn);
 });
 
+const inactivateButton = function (button) {
+  button.classList.add(validationConfig.inactiveButtonClass);
+  button.disabled = true;
+}
 
 function addCard() {
   //изменение свойств name и link для "cardElement" объявляем переменную, помещаем в неё изменяемые свойства

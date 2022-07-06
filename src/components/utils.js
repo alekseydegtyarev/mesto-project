@@ -18,8 +18,9 @@ const profileBtnEdit = document.querySelector('.profile__button-edit'), // кн�
   popupImgZoom = document.querySelector('.popup__img-zoom'), //попап зума картинок
   imgZoomed = document.querySelector('.popup__img-zoomed'), //увеличенная картинка
   imgCaption = document.querySelector('.popup__img-zoom-caption'), //подпись к картинке в попапе
-  formAddPlace = document.querySelector('.form_add-place'); //форма добавления карточек
+  formAddPlace = document.querySelector('.form_add-place'), //форма добавления карточек
+  addPlaceSubmitBtn = formAddPlace.querySelector('.popup__save-button_place');
 
 export {profileBtnEdit, popupProfile, btnCloseProfile, popupPlace, btnClosePlace, imgZoomCloseBtn, name, about,
   nameInput, aboutInput, formInfoEdit, addPlaceBtn, placeNameInput, placeLinkInput, templateCard, cardsList, popupImgZoom,
-  imgZoomed, imgCaption, formAddPlace}
+  imgZoomed, imgCaption, formAddPlace, addPlaceSubmitBtn}
