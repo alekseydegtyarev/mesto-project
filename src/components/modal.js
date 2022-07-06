@@ -13,10 +13,12 @@ import {
 import {validationConfig, toggleButtonState} from "./validate.js";
 
 function openPopup(popup) {
-  const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
   popup.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
-  submitButton.classList.add(validationConfig.inactiveButtonClass);
-  submitButton.disabled = true;
+  const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
+  if (popup.querySelector(validationConfig.submitButtonSelector) !== null) { //https://bobbyhadz.com/blog/javascript-check-if-element-has-child-with-id
+    submitButton.classList.add(validationConfig.inactiveButtonClass);
+    submitButton.disabled = true;
+  }
 }
 
 //в "значение"(value) инпутов кладём текущий текст со страницы
