@@ -1,13 +1,15 @@
 import {popupPlace, imgZoomCloseBtn, placeNameInput, placeLinkInput, templateCard, cardsList, popupImgZoom, imgZoomed, imgCaption, formAddPlace, addPlaceSubmitBtn} from './utils.js';
 import {handleClickBtnZoom, closePopup,} from './modal.js';
 import {validationConfig} from './validate.js'
+import {config, getAllCards, onResponce, addCards, removeCard, editCard} from './api.js'
 
-const volcano = new URL('../images/volcano-optimised.jpg', import.meta.url);
-const tuman = new URL('../images/tuman-optimised.jpg', import.meta.url);
-const river = new URL('../images/river-optimised.jpg', import.meta.url);
-const road = new URL('../images/road.jpg', import.meta.url);
-const singapore = new URL('../images/singapore.jpg', import.meta.url);
-const ship = new URL('../images/ship.jpg', import.meta.url);
+
+// const volcano = new URL('../images/volcano-optimised.jpg', import.meta.url);
+// const tuman = new URL('../images/tuman-optimised.jpg', import.meta.url);
+// const river = new URL('../images/river-optimised.jpg', import.meta.url);
+// const road = new URL('../images/road.jpg', import.meta.url);
+// const singapore = new URL('../images/singapore.jpg', import.meta.url);
+// const ship = new URL('../images/ship.jpg', import.meta.url);
 // import arkhyz from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg';
 // import chelyabinsk from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg';
 // import ivanovo from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg';
@@ -15,37 +17,34 @@ const ship = new URL('../images/ship.jpg', import.meta.url);
 // import kholmogorsky from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg';
 // import baikal from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg';
 
-const cards = [
-  {
-    name: 'Корякский вулкан',
-    link: volcano
-  },
-  {
-    name: 'Полянка :)',
-    link: tuman
-  },
-  {
-    name: 'Река Камчатка',
-    link: river
-  },
-  {
-    name: 'Дорога в горах',
-    link: road
-  },
-  {
-    name: 'Сингапур',
-    link: singapore
-  },
-  {
-    name: 'Шхуна в бухте Моржовая, Камчатка',
-    link: ship
-  }
-];
+// const cards = [
+//   {
+//     name: 'Корякский вулкан',
+//     link: volcano
+//   },
+//   {
+//     name: 'Полянка :)',
+//     link: tuman
+//   },
+//   {
+//     name: 'Река Камчатка',
+//     link: river
+//   },
+//   {
+//     name: 'Дорога в горах',
+//     link: road
+//   },
+//   {
+//     name: 'Сингапур',
+//     link: singapore
+//   },
+//   {
+//     name: 'Шхуна в бухте Моржовая, Камчатка',
+//     link: ship
+//   }
+// ];
 
-//удаление карточки
-const handleClickBtnDelete = function(evt) {
-  evt.target.closest('.cards__card').remove();
-}
+
 
 //лайк
 const handleClickBtnLike = function (evt) {
@@ -60,7 +59,6 @@ imgZoomCloseBtn.addEventListener('mousedown', () => closePopup(popupImgZoom));
 //добавление 6 стартовых карточек из массива при загрузке страницы
 //добавление карточек должно быть после объявления функций, на которые внутри ссылаются слушатели событий
 const initiateCard = function(cardElement) {
-  // cardElement.preventDefault();
   const card = templateCard.content.cloneNode(true), //помещаем в переменную темплэйт клонированием всего содержимого
     image = card.querySelector('.cards__image'), //изображение внутри клонированного темплэйта
     cardHeader = card.querySelector('.cards__header'), //заголовок карточки
@@ -71,7 +69,15 @@ const initiateCard = function(cardElement) {
   image.src = cardElement.link; //в атрибут src помещаем значение ссылки из инпута
   image.alt = cardElement.name; //в alt помещаем название из инпута
 
-  btnDelete.addEventListener('click', handleClickBtnDelete); //при добавлении новых элементов на страницу
+  btnDelete.addEventListener('click', (evt) => {
+    removeCard(cardElement._id)
+      .then(() => {
+        evt.target.closest('.cards__card').remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }); //при добавлении новых элементов на страницу
   like.addEventListener('click', handleClickBtnLike); //слушатель для лайка
   image.addEventListener('click', handleClickBtnZoom);
 
@@ -84,9 +90,7 @@ const renderCard = function(data, container) {
   container.prepend(card);
 }
 
-cards.forEach(function (item) {
-  renderCard(item, cardsList)
-})
+
 
 //добавление дополнительных карточек
 //переиспользование функции из инициализации карточек и добавить ".preventDefault()" тк при добавлении карточки страница обновляется
@@ -94,7 +98,7 @@ formAddPlace.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addCard();
   evt.target.reset();
-  closePopup(popupPlace);//закрытие формы при создании карточки
+  closePopup(popupPlace);
   inactivateButton(addPlaceSubmitBtn);
 });
 
@@ -110,7 +114,13 @@ function addCard() {
     name: placeNameInput.value,
     link: placeLinkInput.value,
   };
-  renderCard(parameters, cardsList)
+  addCards(parameters)
+    .then((res) => {
+      renderCard(parameters, cardsList)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
-export {cards, handleClickBtnDelete, handleClickBtnLike, handleClickBtnZoom, initiateCard, renderCard, addCard}
+export {handleClickBtnLike, handleClickBtnZoom, initiateCard, renderCard, addCard}

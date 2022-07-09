@@ -51,3 +51,10 @@
 
 @import url(../blocks/error/error.css);
 @import url(../blocks/popup/__input-edit/_state/popup__input-edit_state_invalid.css);
+
+@import url(../blocks/cards/__like-container/cards__like-container.css);
+@import url(../blocks/cards/__like-sum/cards__like-sum.css);
+
+@import url(../blocks/profile/__avatar-button/profile__avatar-button.css);
+
+
