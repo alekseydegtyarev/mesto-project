@@ -19,48 +19,8 @@ import {userID, loading} from './index.js'
 import {logPlugin} from "@babel/preset-env/lib/debug";
 
 
-// const volcano = new URL('../images/volcano-optimised.jpg', import.meta.url);
-// const tuman = new URL('../images/tuman-optimised.jpg', import.meta.url);
-// const river = new URL('../images/river-optimised.jpg', import.meta.url);
-// const road = new URL('../images/road.jpg', import.meta.url);
-// const singapore = new URL('../images/singapore.jpg', import.meta.url);
-// const ship = new URL('../images/ship.jpg', import.meta.url);
-// import arkhyz from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg';
-// import chelyabinsk from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg';
-// import ivanovo from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg';
-// import kamchatka from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg';
-// import kholmogorsky from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg';
-// import baikal from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg';
-
-// const cards = [
-//   {
-//     name: 'Корякский вулкан',
-//     link: volcano
-//   },
-//   {
-//     name: 'Полянка :)',
-//     link: tuman
-//   },
-//   {
-//     name: 'Река Камчатка',
-//     link: river
-//   },
-//   {
-//     name: 'Дорога в горах',
-//     link: road
-//   },
-//   {
-//     name: 'Сингапур',
-//     link: singapore
-//   },
-//   {
-//     name: 'Шхуна в бухте Моржовая, Камчатка',
-//     link: ship
-//   }
-// ];
-
 //проверка наличия лайка
-const isLiked = (likesArr, userID) => {
+const isLiked = (cardElement, likesArr, userID) => {
   return Boolean(likesArr.find((likeObj) => {
     return likeObj._id === userID;
   }))
@@ -68,12 +28,12 @@ const isLiked = (likesArr, userID) => {
 
 //обновление состояния лайка
 const updLikeState = (cardElement, likesArr, userID) => {
-    const like = cardElement.querySelector('.cards__like'),
-    likeSum = cardElement.querySelector('.cards__like-sum');
+    const like = cardElement.querySelector('.cards__like');
+    const likeSum = cardElement.querySelector('.cards__like-sum');
 
   likeSum.textContent = likesArr.length;
 
-  if(isLiked(likesArr, userID)) {
+  if (isLiked(cardElement, likesArr, userID)) {
     like.classList.add('cards__like_active');
   }
   else {
@@ -92,12 +52,6 @@ const handleChangeLikeStatus = (card, cardID, isLiked) => {
     })
 }
 
-// const handleClickBtnLike = function (evt) {
-//   evt.target.classList.toggle('cards__like_active')
-// }
-
-
-
 //закрытие попапа с зумом картинки
 imgZoomCloseBtn.addEventListener('mousedown', () => closePopup(popupImgZoom));
 
@@ -107,13 +61,13 @@ const initiateCard = function(cardElement, userID, handleChangeLikeStatus) {
     image = card.querySelector('.cards__image'), //изображение внутри клонированного темплэйта
     cardHeader = card.querySelector('.cards__header'), //заголовок карточки
     btnDelete = card.querySelector('.cards__delete'), //кнопка удаления
-    like = card.querySelector('.cards__like'); //лайк на карточке
+    like = card.querySelector('.cards__like'), //лайк на карточке
+    likeSum = card.querySelector('.cards__like-sum');
 
 
   cardHeader.textContent = cardElement.name;
   image.src = cardElement.link;
   image.alt = cardElement.name;
-
 
   updLikeState(card, cardElement.likes, userID)
 
