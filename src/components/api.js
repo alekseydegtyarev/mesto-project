@@ -7,16 +7,27 @@ const config = {
 }
 
 function onResponce(res) {
-  console.log(res);
+  // console.log(res);
   return res.ok ? res.json() : Promise.reject('Сервер недоступен')
 }
 
 function getAllCards() {
   return fetch(`${config.url}/cards`, {
+    headers: config.headers
+  })
+    .then(onResponce)
+}
+
+function getUserInfo() {
+  return fetch(`${config.url}/users/me`, {
     method: "GET",
     headers: config.headers
   })
     .then(onResponce)
+}
+
+function getInfo() {
+  return Promise.all([getAllCards(), getUserInfo()])
 }
 
 function addCards(data) {
@@ -37,6 +48,15 @@ function editProfile(data) {
     .then(onResponce)
 }
 
+function editAvatar(data) {
+  return fetch(`${config.url}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify(data)
+  })
+    .then(onResponce)
+}
+
 function removeCard(cardId) {
   return fetch(`${config.url}/cards/${cardId}`, {
     method: "DELETE",
@@ -49,9 +69,8 @@ function likeCard(cardId, isLiked) {
   return fetch(`${config.url}/cards/likes/${cardId}`, {
     method: isLiked ? 'DELETE' : 'PUT',
     headers: config.headers,
-
   })
     .then(onResponce)
 }
 
-export {config, getAllCards, onResponce, addCards, removeCard, likeCard}
+export {config, getAllCards, onResponce, addCards, removeCard, likeCard, getInfo, editProfile, getUserInfo, editAvatar}

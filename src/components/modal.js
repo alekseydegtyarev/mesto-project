@@ -1,7 +1,7 @@
 // функция открытия поп-апа. вместо popup в слушателях кнопок нужно будет указывать объявленные выше переменные конкретных попапов
 import {
   about,
-  aboutInput,
+  aboutInput, formAvatarEdit, popupAvatar,
   imgCaption,
   imgZoomed,
   name,
@@ -11,6 +11,8 @@ import {
   profileBtnEdit
 } from "./utils.js";
 // import {validationConfig, toggleButtonState} from "./validate.js";
+
+import {editProfileInfo, editNewAvatar} from "./index";
 
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
@@ -44,11 +46,17 @@ function handleProfileFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
-
+  editProfileInfo();
   // Получите значение полей aboutInput и nameInput из свойства value
   about.textContent = aboutInput.value;
   name.textContent = nameInput.value;// Вставьте новые значения с помощью textContent
   closePopup(popupProfile);
+}
+
+function handleAvatarFormSubmit (evt) {
+  evt.preventDefault();
+  editNewAvatar();
+  closePopup(popupAvatar)
 }
 
 //открытие попапа с зумом картинки
@@ -76,4 +84,4 @@ function closeByOverlay (evt) {
   }
 }
 
-export {openPopup, addProfileToInput, closePopup, handleProfileFormSubmit, handleEsc, closeByOverlay, handleClickBtnZoom};
+export {openPopup, addProfileToInput, closePopup, handleProfileFormSubmit, handleEsc, closeByOverlay, handleClickBtnZoom, handleAvatarFormSubmit};

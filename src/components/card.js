@@ -1,7 +1,22 @@
-import {popupPlace, imgZoomCloseBtn, placeNameInput, placeLinkInput, templateCard, cardsList, popupImgZoom, imgZoomed, imgCaption, formAddPlace, addPlaceSubmitBtn} from './utils.js';
+import {
+  popupPlace,
+  imgZoomCloseBtn,
+  placeNameInput,
+  placeLinkInput,
+  templateCard,
+  cardsList,
+  popupImgZoom,
+  imgZoomed,
+  imgCaption,
+  formAddPlace,
+  addPlaceSubmitBtn,
+  avatarSubmitBtn
+} from './utils.js';
 import {handleClickBtnZoom, closePopup,} from './modal.js';
 import {validationConfig} from './validate.js'
-import {config, getAllCards, onResponce, addCards, removeCard, editCard} from './api.js'
+import {config, getAllCards, onResponce, addCards, removeCard, likeCard} from './api.js'
+import {userID, loading} from './index.js'
+import {logPlugin} from "@babel/preset-env/lib/debug";
 
 
 // const volcano = new URL('../images/volcano-optimised.jpg', import.meta.url);
@@ -44,30 +59,67 @@ import {config, getAllCards, onResponce, addCards, removeCard, editCard} from '.
 //   }
 // ];
 
-
-
-//лайк
-const handleClickBtnLike = function (evt) {
-  evt.target.classList.toggle('cards__like_active');
+//проверка наличия лайка
+const isLiked = (likesArr, userID) => {
+  return Boolean(likesArr.find((likeObj) => {
+    return likeObj._id === userID;
+  }))
 }
+
+//обновление состояния лайка
+const updLikeState = (cardElement, likesArr, userID) => {
+    const like = cardElement.querySelector('.cards__like'),
+    likeSum = cardElement.querySelector('.cards__like-sum');
+
+  likeSum.textContent = likesArr.length;
+
+  if(isLiked(likesArr, userID)) {
+    like.classList.add('cards__like_active');
+  }
+  else {
+    like.classList.remove('cards__like_active');
+  }
+}
+
+//переключение лайка
+const handleChangeLikeStatus = (card, cardID, isLiked) => {
+  likeCard(cardID, isLiked)
+    .then((data) => {
+      updLikeState(card, data.likes, userID)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+// const handleClickBtnLike = function (evt) {
+//   evt.target.classList.toggle('cards__like_active')
+// }
 
 
 
 //закрытие попапа с зумом картинки
 imgZoomCloseBtn.addEventListener('mousedown', () => closePopup(popupImgZoom));
 
-//добавление 6 стартовых карточек из массива при загрузке страницы
-//добавление карточек должно быть после объявления функций, на которые внутри ссылаются слушатели событий
-const initiateCard = function(cardElement) {
+//добавление стартовых карточек из массива при загрузке страницы
+const initiateCard = function(cardElement, userID, handleChangeLikeStatus) {
   const card = templateCard.content.cloneNode(true), //помещаем в переменную темплэйт клонированием всего содержимого
     image = card.querySelector('.cards__image'), //изображение внутри клонированного темплэйта
     cardHeader = card.querySelector('.cards__header'), //заголовок карточки
     btnDelete = card.querySelector('.cards__delete'), //кнопка удаления
     like = card.querySelector('.cards__like'); //лайк на карточке
 
-  cardHeader.textContent = cardElement.name; //помещаем в заголовок карточки значение инпута с названием
-  image.src = cardElement.link; //в атрибут src помещаем значение ссылки из инпута
-  image.alt = cardElement.name; //в alt помещаем название из инпута
+
+  cardHeader.textContent = cardElement.name;
+  image.src = cardElement.link;
+  image.alt = cardElement.name;
+
+
+  updLikeState(card, cardElement.likes, userID)
+
+  if (cardElement.owner._id !== userID) {
+    btnDelete.remove();
+  }
 
   btnDelete.addEventListener('click', (evt) => {
     removeCard(cardElement._id)
@@ -77,16 +129,17 @@ const initiateCard = function(cardElement) {
       .catch((err) => {
         console.log(err);
       })
-  }); //при добавлении новых элементов на страницу
-  like.addEventListener('click', handleClickBtnLike); //слушатель для лайка
+  });
+  like.addEventListener('click', () => {
+    handleChangeLikeStatus(card, cardElement._id, like.classList.contains('cards__like_active'))
+  });
   image.addEventListener('click', handleClickBtnZoom);
-
   return card; // https://efim360.ru/javascript-operator-return/
 }
 
 //сделано по аналогии с вебинаром
-const renderCard = function(data, container) {
-  const card = initiateCard(data);
+const renderCard = function(data, container, userID) {
+  const card = initiateCard(data, userID, handleChangeLikeStatus);
   container.prepend(card);
 }
 
@@ -95,11 +148,12 @@ const renderCard = function(data, container) {
 //добавление дополнительных карточек
 //переиспользование функции из инициализации карточек и добавить ".preventDefault()" тк при добавлении карточки страница обновляется
 formAddPlace.addEventListener('submit', function (evt) {
-  evt.preventDefault();
+  // evt.preventDefault();
   addCard();
   evt.target.reset();
   closePopup(popupPlace);
   inactivateButton(addPlaceSubmitBtn);
+  // location.reload() //никак не могу понять, почему карточка не рендерится сразу, а только после обновления страницы
 });
 
 const inactivateButton = function (button) {
@@ -108,6 +162,7 @@ const inactivateButton = function (button) {
 }
 
 function addCard() {
+  loading(addPlaceSubmitBtn, true)
   //изменение свойств name и link для "cardElement" объявляем переменную, помещаем в неё изменяемые свойства
   //переменную используем в качестве аргумента для функции initiateCard
   const parameters = {
@@ -116,11 +171,14 @@ function addCard() {
   };
   addCards(parameters)
     .then((res) => {
-      renderCard(parameters, cardsList)
+      renderCard(parameters, cardsList, userID)
     })
     .catch((err) => {
       console.log(err)
     })
+    .finally(() => loading(addPlaceSubmitBtn, false))
 }
 
-export {handleClickBtnLike, handleClickBtnZoom, initiateCard, renderCard, addCard}
+
+
+export {handleClickBtnZoom, initiateCard, renderCard, addCard}
