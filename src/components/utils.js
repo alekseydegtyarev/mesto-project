@@ -28,6 +28,21 @@ const profileBtnEdit = document.querySelector('.profile__button-edit'), // кн�
   avatarSubmitBtn = formAvatarEdit.querySelector('.popup__save-button_avatar'),
   profileSubmitBtn = formInfoEdit.querySelector('.popup__save-button_profile');
 
+const setUserInfo = ({userName, userAbout, userAvatar}) => {
+  if (userName) name.textContent = userName;
+  if (userAbout) about.textContent = userAbout;
+  if (userAvatar) avatar.src = userAvatar;
+}
+
+//меняем текст на кнопке, пока вносятся изменения
+function loading (button, load) {
+  if (load) {
+    button.textContent = "Сохранение..."
+  } else {
+    button.textContent = 'Сохранить';
+  }
+}
+
 export {profileBtnEdit, popupProfile, btnCloseProfile, popupPlace, btnClosePlace, imgZoomCloseBtn, name, about,
   nameInput, aboutInput, formInfoEdit, addPlaceBtn, placeNameInput, placeLinkInput, templateCard, cardsList, popupImgZoom,
-  imgZoomed, imgCaption, formAddPlace, addPlaceSubmitBtn, changeInfoBtn, avatar,formAvatarEdit, avatarLinkInput, avatarSubmitBtn, popupAvatar, profileSubmitBtn}
+  imgZoomed, imgCaption, formAddPlace, addPlaceSubmitBtn, changeInfoBtn, avatar,formAvatarEdit, avatarLinkInput, avatarSubmitBtn, popupAvatar, profileSubmitBtn, setUserInfo, loading}

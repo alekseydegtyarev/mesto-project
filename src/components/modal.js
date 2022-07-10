@@ -12,7 +12,7 @@ import {
 } from "./utils.js";
 // import {validationConfig, toggleButtonState} from "./validate.js";
 
-import {editProfileInfo, editNewAvatar} from "./index";
+import {} from "./index";
 
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавляем класс, чтобы попап был виден
@@ -39,26 +39,6 @@ profileBtnEdit.addEventListener('click', () => {
   addProfileToInput();
 }); //передаём в параметр popup попап редактирования профиля
 
-//сохранение текста из инпутов на страницу, часть кода с комментариями взята из тз, комментарии практикума частично сохранены
-//upd вынес объявление переменных в начало файла
-// Находим форму в DOM
-function handleProfileFormSubmit (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
-  editProfileInfo();
-  // Получите значение полей aboutInput и nameInput из свойства value
-  about.textContent = aboutInput.value;
-  name.textContent = nameInput.value;// Вставьте новые значения с помощью textContent
-  closePopup(popupProfile);
-}
-
-function handleAvatarFormSubmit (evt) {
-  evt.preventDefault();
-  editNewAvatar();
-  closePopup(popupAvatar)
-}
-
 //открытие попапа с зумом картинки
 
 const handleClickBtnZoom = function(element) {
@@ -84,4 +64,4 @@ function closeByOverlay (evt) {
   }
 }
 
-export {openPopup, addProfileToInput, closePopup, handleProfileFormSubmit, handleEsc, closeByOverlay, handleClickBtnZoom, handleAvatarFormSubmit};
+export {openPopup, addProfileToInput, closePopup, handleEsc, closeByOverlay, handleClickBtnZoom};
